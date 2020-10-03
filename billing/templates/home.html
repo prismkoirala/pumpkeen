@@ -5,14 +5,35 @@
     <title></title>
   </head>
   <body>
-      {% for b in billings %}
+      <div>
+        <h1> Model for billing </h1>
+        {% for b in billings %}
+        <span>
+          {{ b.id }} | {{ b.name }} | {{ b.oil.name }} | {{ b.quantity }} | {{ b.get_total }}
+          </span>
+          <hr / >
+          <br />
+        {% endfor %}
+    </div>
 
+    <div>
+      <h1> Model for billing History </h1>
+      {% for b in history %}
       <span>
-        {{ b.id }} | {{ b.name }} | {{ b.oil.name }} | {{ b.quantity }} | {{ b.get_total }}
+          Bill number: {{ b.id }} | {{ b.name }} | {{ b.oil.name }} | {{ b.quantity }} | {{ b.total }}
         </span>
         <hr / >
         <br />
-
       {% endfor %}
+  </div>
+
+    <form action="" method="post">
+       {% csrf_token %}
+       <table>
+       {{ form.as_table }}
+       </table>
+       <input type="submit" value="Submit">
+   </form>
+
   </body>
 </html>

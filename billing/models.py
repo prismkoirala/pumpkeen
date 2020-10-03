@@ -8,13 +8,18 @@ class OilType(models.Model):
         return self.name
 
 class Billing(models.Model):
-
-    oil = models.ForeignKey(OilType, on_delete=models.CASCADE)
+    oil = models.ForeignKey(OilType, blank=True, null=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=100, default="-")
-    quantity = models.IntegerField(default=1, null=False, blank=False )
+    quantity = models.IntegerField(default=1, null=True, blank=True )
     time = models.DateTimeField(auto_now_add=True)
 
     def get_total(self):
         tot = self.oil.price * self.quantity
         return tot
-# Create your models here.
+
+class BillingHistory(models.Model):
+    oil = models.ForeignKey(OilType, blank=True, null=True, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100, default="-")
+    quantity = models.IntegerField(default=1, null=True, blank=True )
+    total = models.IntegerField(default=100)
+    time = models.DateTimeField(auto_now_add=True)
