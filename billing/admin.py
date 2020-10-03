@@ -25,19 +25,19 @@ class BillingAdmin(admin.ModelAdmin):
         'name',
         'oil',
         'quantity',
-        'total'
+        'amount'
     ]
     list_display =[
         'name',
         'oil',
         'quantity',
-        'total'
+        'amount'
     ]
     list_filter =[
         'name'
     ]
     search_fields = ['oil']
-# Register your models here.
+
 @admin.register(OilType)
 class OilAdmin(admin.ModelAdmin):
     fields = [

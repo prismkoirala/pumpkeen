@@ -5,22 +5,11 @@
     <title></title>
   </head>
   <body>
-      <div>
-        <h1> Model for billing </h1>
-        {% for b in billings %}
-        <span>
-          {{ b.id }} | {{ b.name }} | {{ b.oil.name }} | {{ b.quantity }} | {{ b.get_total }}
-          </span>
-          <hr / >
-          <br />
-        {% endfor %}
-    </div>
-
-    <div>
+    <div style="text-align: center;">
       <h1> Model for billing History </h1>
       {% for b in history %}
       <span>
-          Bill number: {{ b.id }} | {{ b.name }} | {{ b.oil.name }} | {{ b.quantity }} | {{ b.total }}
+          Bill Number: {{ b.id }} | Bearer: {{ b.name }} | Oil:{{ b.oil.name }} | Liters: {{ b.quantity }} | Amount: {{ b.amount }}
         </span>
         <hr / >
         <br />

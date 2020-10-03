@@ -20,6 +20,6 @@ class Billing(models.Model):
 class BillingHistory(models.Model):
     oil = models.ForeignKey(OilType, blank=True, null=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=100, default="-")
-    quantity = models.IntegerField(default=1, null=True, blank=True )
-    total = models.IntegerField(default=100)
+    quantity = models.DecimalField(decimal_places=2, max_digits=5, default=1.00, null=True, blank=True )
+    amount = models.IntegerField(default=100, null=True, blank=True )
     time = models.DateTimeField(auto_now_add=True)

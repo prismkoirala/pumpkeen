@@ -13,16 +13,22 @@ def list_billing(request, *args, **kwargs):
 
     if request.method == 'POST':
         if form.is_valid():
-            form_name = form.cleaned_data.get('name')
 
-            oil_name = 'Petrol'
-            oil_obj = OilType.objects.get(name=oil_name)
+            form_name = form.cleaned_data.get('name')
+            form_amt = form.cleaned_data.get('amount')
+
+
+
+            oil_id = form.cleaned_data.get('oil')
+            oil_obj = OilType.objects.get(id=oil_id)
+
+            quantity =  form_amt/oil_obj.price
 
             history_save = BillingHistory(
                 oil = oil_obj,
                 name = form_name,
-                quantity = 5,
-                total = 1000
+                quantity = quantity,
+                amount = form_amt
             )
             history_save.save()
             return render(request, 'post.html')
@@ -37,4 +43,3 @@ def list_billing(request, *args, **kwargs):
 
     return render(request, 'home.html', context)
 
-# Create your views here.

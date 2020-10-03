@@ -8,3 +8,6 @@ OIL_CHOICES = (
 class BillingForm(forms.Form):
     name = forms.CharField(required=False, max_length=100)
     oil = forms.ChoiceField(choices = OIL_CHOICES)
+    amount = forms.IntegerField()
+
+  
