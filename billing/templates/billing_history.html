@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+  <div class="column is-full is-mobile">
+    <h1 class="title">Billing History</h1>
+  </div>
+
+  <div class="column is-full is-mobile">
+
+    <table class="table is-fullwidth is-striped is-bordered ">
+
+      <thead>
+
+        <tr>
+          <th>Date/Time</th>
+          <th>Bill No.</th>
+          <th>Bearer</th>
+          <th>Qty (Ltr.)</th>
+          <th>Item</th>
+          <th>Price</th>
+          <th>Total</th>
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        {% for h in history %}
+
+          <tr>
+              <td data-column="Date/Time">{{h.time}}</td>  
+              <td data-column="Bill No.">{{h.id}}</td>
+              <td data-column="Bearer">{{h.name}}</td>
+              <td data-column="Quantity">{{h.quantity}}</td>
+              <td data-column="Item">{{ h.oil.name }}</td>
+              <td data-column="Price">{{ h.price }}</td>
+              <td data-column="Total">{{h.amount}}</td>
+          </tr>
+
+        {% endfor %}
+
+      </tbody>
+
+    </table>
+
+  </div>
+{% endblock %}

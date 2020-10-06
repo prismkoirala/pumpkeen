@@ -1,10 +1,83 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-    POSTED TO BILLING HISTORY
-  </body>
-</html>
+{% extends 'base.html' %}
+
+{% block content %}
+
+       <div class="box" id="invoice-POS">
+
+        <div class="has-text-centered"> 
+          <h5 class="title is-5">Pranik Oil Store</h5>
+          <h6 class="subtitle is-6">Mechinagar-6, Ittabhatta</h6>
+        </div>
+
+        <p class=" mt-4 is-size-7 has-text-right has-text-weight-light ">
+            Bill No.  <span class="is-capitalized has-text-weight-bold ">{{obj.id}}</span>
+          </p>
+        <div class="mt-4 has-text-left"> 
+          <p class=" is-size-7 mt-5 has-text-weight-bold ">
+            Date/Time:- <span class="is-capitalized has-text-weight-light ">{{obj.time}}</span>
+         </p>
+          <p class=" is-size-7 has-text-weight-bold ">
+            Name:- <span class="is-capitalized has-text-weight-light ">{{obj.name}}</span>
+          </p>
+        </div>
+
+        <div class="mt-4 has-text-centered">
+          <span class="vat-border is-size-7 has-text-weight-light">Vat number: 123456789</span>
+        </div>
+       
+
+
+        <table class=" table is-fullwidth is-bordered is-size-7 is-narrow mt-5 is-striped ">
+               <tr >
+                      <td ><h2 class="has-text-weight-bold">Item</h2></td>
+                      <td ><h2 class="has-text-weight-bold">Price</h2></td>
+                      <td ><h2 class="has-text-weight-bold">Qty (Ltr.)</h2></td>
+                      <td ><h2 class="has-text-weight-bold">Total</h2></td>
+               </tr>
+
+
+               <tr >
+                      <td ><p >{{obj.oil}}</p></td>
+                      <td ><p >{{ obj.oil.price }}</p></td>
+                      <td ><p >{{obj.quantity}}</p></td>
+                      <td ><p >{{ obj.amount }}</p></td>
+               </tr>               
+        </table>
+
+        <p class=" is-size-7 has-text-right has-text-weight-light ">
+            Contact:  <span class="is-capitalized has-text-weight-bold ">(+977)9852672190</span>
+        </p>
+        <p class=" is-size-7 has-text-right has-text-weight-light ">
+            <span class="is-capitalized has-text-weight-bold ">(+977)023-561321</span>
+        </p>
+        <p class=" mt-4 is-size-7 is-size-4 has-text-centered">
+            <span class="is-capitalized has-text-weight-bold ">Thank you for your business!</span>
+        </p>
+
+        </div>
+        <div class="has-text-centered">
+         <button class="button is-danger is-large" onclick="myfunc('invoice-POS')">Print Bill</button>
+        </div>
+
+
+       
+
+
+       </body>
+       <script src="https://kit.fontawesome.com/54e866e738.js" crossorigin="anonymous"></script>
+     <script type="text/javascript">
+            function print_current_page()
+             {
+              window.print();
+                }
+
+                function myfunc(paravalue){
+                 var backup  = document.body.innerHTML;
+                 var divcontent = document.getElementById(paravalue).innerHTML; 
+                 document.body.innerHTML = divcontent;
+                 window.print();
+                 document.body.innerHTML = backup;     
+                }
+     </script>
+
+{% endblock %}

@@ -25,7 +25,7 @@ SECRET_KEY = 'z(qxyljxdfl#dx*jq5a6&4tzj&_whw2)*$s@ve*&7(4h%#28k#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -106,7 +106,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+USE_TZ = True
+TIME_ZONE = 'Asia/Kathmandu'
 
 USE_I18N = True
 
@@ -119,3 +120,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+    '/var/www/static/',
+]

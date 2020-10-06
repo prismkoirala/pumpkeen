@@ -1,28 +1,100 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-    <div style="text-align: center;">
-      <h1> Model for billing History </h1>
-      {% for b in history %}
-      <span>
-          Bill Number: {{ b.id }} | Bearer: {{ b.name }} | Oil:{{ b.oil.name }} | Liters: {{ b.quantity }} | Amount: {{ b.amount }}
-        </span>
-        <hr / >
-        <br />
-      {% endfor %}
+
+{% extends 'base.html' %}
+{% block content %}  
+  
+
+            <div class="column is-full is-mobile has-text-centered">
+              <h1 class="title"> Bill </h1>
+
+              <br />
+
+                {% for o in oil %}
+
+                  <p class="subtitle is-5 has-text-right">{{ o.name }}:-
+                    <span class="subtitle  has-text-danger is-text-red has-text-weight-bold">{{o.price}}</span>
+                  </p>
+
+                {% endfor %}
+
+            </div>
+              
+
+            <div class="column is-full is-mobile">
+              <form method="post" id="form" class="validate">
+
+                  {% csrf_token %}
+
+                  <div class="field">
+                    <label class="label">Bearer:</label>
+                    <div class="control">
+                      {{form.name}}
+                    </div>
+                  </div>
+
+                   <div class="field">
+                    <label class="label">Type:</label>
+                    <div class="select is-danger">
+                      {{form.oil}}
+                      </div>
+                    </div>
+
+                  <div class="field" style="padding-top:10px;">
+                    <label class="label">Amount:</label>
+                    {{ form.amount }}
+                  </div>
+
+                  <div class="control" style="text-align: center;">
+                    <button class="button is-black is-large" type="submit" value="POST">CREATE</button>
+                  </div>
+              </form>
+          </div>
+
+
+          <div class="column is-mobile">
+
+            <h1 class="title"> Latest Billings</h1>
+
+            <table class="table is-fullwidth is-narrow is-striped is-bordered">
+
+              <thead>
+
+                <tr>
+                  <th>Bill No.</th>
+                  <th>Bearer</th>
+                  <th>Qty (Ltr.)</th>
+                  <th>Item</th>
+                  <th>Total</th>
+                </tr>
+
+              </thead>
+
+              <tbody>
+
+                {% for h in history %}
+
+                  <tr>
+                      <td data-column="Bill No.">{{h.id}}</td>
+                      <td data-column="Bearer">{{h.name}}</td>
+                      <td data-column="Quantity">{{h.quantity}}</td>
+                      <td data-column="Item">{{ h.oil.name }}</td>
+                      <td data-column="Total">{{h.amount}}</td>
+                  </tr>
+
+                {% endfor %}
+
+              </tbody>
+
+            </table>
+
+        </div> 
+
+    </div>
+
+
   </div>
 
-    <form action="" method="post">
-       {% csrf_token %}
-       <table>
-       {{ form.as_table }}
-       </table>
-       <input type="submit" value="Submit">
-   </form>
+</div>
+</section> 
+    
 
-  </body>
-</html>
+{% endblock %}

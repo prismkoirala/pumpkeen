@@ -15,9 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from billing.views import list_billing
+from billing.views import list_billing, billing, printing_page
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', list_billing, name="billing" )
+
+    path('', billing, name="billing" ),
+    path('billings/', list_billing, name="list_billing" ),
+    path('print/', printing_page, name="printing_page" )
+
 ]

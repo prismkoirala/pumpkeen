@@ -1,0 +1,6 @@
+@charset "UTF-8";
+
+.vat-border{
+	border:1px solid black;
+	padding: 5px;
+}
