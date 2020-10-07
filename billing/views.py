@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib import messages
+from django.core.paginator import Paginator
 
 from .models import Billing, BillingHistory, OilType
 from .forms import BillingForm, DieselUpdateForm, PetrolUpdateForm
@@ -53,10 +54,15 @@ def billing_exec(request, *args, **kwargs):
 
 def list_billing(request, *args, **kwargs):
 
-    history = BillingHistory.objects.all().order_by('-id')   
+    history = BillingHistory.objects.all().order_by('-id') 
+
+    paginator = Paginator(history, 25)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
     context = {
         'history' : history,
+        'page_obj': page_obj
      }
 
     return render(request, 'billing/billing_history.html', context=context)

@@ -4,12 +4,12 @@
 
 			<div class="card-content">
 				<div class="content">
-	              <form method="post" id="form" class="validate">
-	              	{% csrf_token %}
+				  <form method="post" id="form" class="validate">
+					{% csrf_token %}
 					{{ diesel_update_form }}
 					<div class="control" style="text-align: center;">
-                    	<button class="button is-danger" type="submit" value="POST">UPDATE</button>
-                  	</div>
+						<button class="button is-danger" type="submit" value="POST">UPDATE</button>
+					</div>
 					</form>
 				</div>
 			</div>
