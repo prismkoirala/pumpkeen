@@ -3,15 +3,16 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib import messages
 from django.core.paginator import Paginator
+from django.shortcuts import redirect
 
 from .models import Billing, BillingHistory, OilType
-from .forms import BillingForm, DieselUpdateForm, PetrolUpdateForm
+from .forms import BillingForm, DieselUpdateForm, OilUpdateForm
 
 def billing_exec(request, *args, **kwargs):
 
     oil = OilType.objects.all()
     billings = Billing.objects.all()
-    history = BillingHistory.objects.all().order_by('-id')[:5]
+    history = BillingHistory.objects.all()[:5]
     form = BillingForm(request.POST)
 
     if request.method == 'POST':
@@ -37,7 +38,7 @@ def billing_exec(request, *args, **kwargs):
             )
             history_save.save()
 
-            post_obj = BillingHistory.objects.all().last()
+            post_obj = BillingHistory.objects.first()
 
             return render(request, 'billing/post.html', {'obj': post_obj})
     else:
@@ -74,58 +75,34 @@ def printing_page(request, *args, **kwargs):
 
 def settings_view(request, *args, **kwargs):
 
-    return render(request, 'config/settings.html')
+    oil = OilType.objects.all()
 
-def update_diesel(request, *args, **kwargs):
-
-    diesel_update_form = DieselUpdateForm(request.POST or None)
-
-    if request.method == 'POST':
-        if diesel_update_form.is_valid():
-            diesel_price = diesel_update_form.cleaned_data.get('price')
-
-            update_diesel = OilType.objects.filter(id=1).update(price=diesel_price) 
-
-            diesel_success = "Diesel has been succesfully Configured!"
-
-            context={
-            'success' : diesel_success
-            }
-
-            return render(request, 'info.html', context=context )
-
-    else:
-        pass
-
-    context = {
-        'diesel_update_form': diesel_update_form
+    context={
+        'oil': oil
     }
 
-    return render(request, 'config/update_diesel.html', context)
+    return render(request, 'config/settings.html', context)
 
-def update_petrol(request, *args, **kwargs):
 
-    petrol_update_form = PetrolUpdateForm(request.POST or None)
 
-    if request.method == 'POST':
-        if petrol_update_form.is_valid():
-            petrol_price = petrol_update_form.cleaned_data.get('price')
 
-            update_petrol = OilType.objects.filter(id=2).update(price=petrol_price) 
+def edit_oil(request, id):
 
-            petrol_success = "Petrol has been succesfully Configured!"
+    if request.method == "POST":
+        form = OilUpdateForm(request.POST or None)
 
-            context={
-            'success' : petrol_success
-            }
+        if form.is_valid():
 
-            return render(request, 'info.html', context=context )
-
+            oil_price = form.cleaned_data.get('price')
+            oil = OilType.objects.filter(id=id).update(price=oil_price)  
+            success = "Successfully configured!"
+            return render(request, 'info.html', {'success':success})
+    
     else:
-        pass
-
-    context = {
-        'petrol_update_form': petrol_update_form
-    }
-
-    return render(request, 'config/update_petrol.html', context)
+        oil = OilType.objects.get(id=id)
+        form = OilUpdateForm(request.POST)
+        context={
+            'oil': oil,
+            'form': form
+        }
+        return render(request, 'config/edit_oil.html', context)

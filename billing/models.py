@@ -24,3 +24,10 @@ class BillingHistory(models.Model):
     price = models.DecimalField(default=99.99, decimal_places=2, max_digits=5)
     amount = models.IntegerField(default=100, null=True, blank=True )
     time = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-id']
+
+    def __str__(self):
+        return self.title
+            

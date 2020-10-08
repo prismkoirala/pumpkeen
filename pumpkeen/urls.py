@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from billing.views import printing_page, settings_view, update_diesel, update_petrol
+from billing.views import printing_page, settings_view, edit_oil
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,9 +24,7 @@ urlpatterns = [
 
     path('print/', printing_page, name="printing_page" ),
     path('settings/', settings_view, name="settings"),
-    path('update-diesel/', update_diesel, name="update_diesel"),
-    path('update-petrol/', update_petrol, name="update_petrol")
-
+    path('edit-oil/<id>', edit_oil, name="edit_oil" )
 
 
 ]

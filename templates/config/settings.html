@@ -1,20 +1,12 @@
 {% extends '../base.html' %}
 
 {% block content %}
-		<a class="button" href="{% url 'update_diesel'  %}"> Update Diesel</a>
+		{% for o in oil %}
+			{{o.name}} 
+			<a href=" {% url 'edit_oil' o.id %} "> edit</a><br/>
+		{% endfor %}
 
-		<a class="button" href="{% url 'update_petrol'  %}"> Update Petrol</a>
 
 
-	<script type="text/javascript">
-		document.addEventListener('DOMContentLoaded', function() {
-			let cardToggles = document.getElementsByClassName('card-toggle');
-			for (let i = 0; i < cardToggles.length; i++) {
-				cardToggles[i].addEventListener('click', e => {
-					e.currentTarget.parentElement.parentElement.childNodes[3].classList.toggle('is-hidden');
-				});
-			}
-		});
-	</script>
 
 {% endblock %}

@@ -1,4 +1,5 @@
 from django import forms
+from .models import OilType
 
 OIL_CHOICES = (
     ("1", "Diesel"),
@@ -9,9 +10,11 @@ class DieselUpdateForm(forms.Form):
 	price = forms.DecimalField()
 	price.widget.attrs.update({'class': "input is-large"})
 
-class PetrolUpdateForm(forms.Form):
-	price = forms.DecimalField()
-	price.widget.attrs.update({'class': "input is-large"})
+class OilUpdateForm(forms.ModelForm):
+	
+    class Meta:
+        model = OilType
+        fields = ['price']
 	
 class BillingForm(forms.Form):
     name = forms.CharField(required=False, max_length=100, widget=forms.TextInput(attrs={'class': "input is-large"}))
