@@ -2,7 +2,7 @@
 
 {% block content %}
 
-       <div class="box" id="invoice-POS">
+       <div class=" box" id="invoice-POS">
 
         <div class="has-text-centered"> 
 
@@ -68,7 +68,7 @@
         </p>
 
         </div>
-        <div class="has-text-centered">
+        <div class="has-text-centered no-print">
          <button class="button is-danger is-large" onclick="myfunc('invoice-POS')">Print Bill</button>
         </div>
 
@@ -79,11 +79,6 @@
        </body>
        <script src="https://kit.fontawesome.com/54e866e738.js" crossorigin="anonymous"></script>
      <script type="text/javascript">
-            function print_current_page()
-             {
-              window.print();
-                }
-
                 function myfunc(paravalue){
                  var backup  = document.body.innerHTML;
                  var divcontent = document.getElementById(paravalue).innerHTML; 

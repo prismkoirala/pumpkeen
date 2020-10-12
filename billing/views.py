@@ -21,20 +21,21 @@ def billing_exec(request, *args, **kwargs):
             form_name = form.cleaned_data.get('name')
             form_amt = form.cleaned_data.get('amount')
 
-
-
             oil_id = form.cleaned_data.get('oil')
             oil_obj = OilType.objects.get(id=oil_id)
 
             curr_price = oil_obj.price
             quantity =  form_amt/oil_obj.price
 
+            prof = oil_obj.price-oil_obj.cp
+            tot_prof = quantity
+
             history_save = BillingHistory(
                 oil = oil_obj,
                 price = curr_price,
                 name = form_name,
                 quantity = quantity,
-                amount = form_amt
+                amount = form_amt,
             )
             history_save.save()
 
@@ -56,6 +57,15 @@ def billing_exec(request, *args, **kwargs):
 def list_billing(request, *args, **kwargs):
 
     history = BillingHistory.objects.all().order_by('-id') 
+    
+    tot = 0
+    prof = 4.5
+    tot_prof=0.00
+
+    for ins in history:
+
+        tot = tot + ins.amount
+        tot_prof = tot_prof+ins.profit
 
     paginator = Paginator(history, 25)
     page_number = request.GET.get('page')
@@ -63,7 +73,9 @@ def list_billing(request, *args, **kwargs):
 
     context = {
         'history' : history,
-        'page_obj': page_obj
+        'page_obj': page_obj,
+        'tot': tot,
+        'tot_prof':tot_prof
      }
 
     return render(request, 'billing/billing_history.html', context=context)

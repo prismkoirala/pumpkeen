@@ -25,6 +25,4 @@ urlpatterns = [
     path('print/', printing_page, name="printing_page" ),
     path('settings/', settings_view, name="settings"),
     path('edit-oil/<id>', edit_oil, name="edit_oil" )
-
-
 ]

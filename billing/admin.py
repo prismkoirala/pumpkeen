@@ -25,7 +25,8 @@ class BillingAdmin(admin.ModelAdmin):
         'name',
         'oil',
         'quantity',
-        'amount'
+        'amount',
+        'profit'
     ]
     list_display =[
         'name',
@@ -42,7 +43,8 @@ class BillingAdmin(admin.ModelAdmin):
 class OilAdmin(admin.ModelAdmin):
     fields = [
         'name',
-        'price'
+        'price',
+        'cp'
     ]
     list_display =[
         'name',

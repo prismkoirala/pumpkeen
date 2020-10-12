@@ -5,6 +5,10 @@ OIL_CHOICES = (
     ("1", "Diesel"),
     ("2", "Petrol")
 )
+NAME_CHOICES = (
+    ("Shyam", "Shyam Magar"),
+    ("Devi", "Devi Koirala")
+)
 
 class DieselUpdateForm(forms.Form):
 	price = forms.DecimalField()

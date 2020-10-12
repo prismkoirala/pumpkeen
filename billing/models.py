@@ -3,6 +3,7 @@ from django.db import models
 class OilType(models.Model):
     name = models.CharField(max_length=100, default="-")
     price = models.DecimalField(decimal_places=2, max_digits=5)
+    cp =  models.DecimalField(decimal_places=2, max_digits=5, default=100.5)
 
     def __str__(self):
         return self.name
@@ -24,10 +25,10 @@ class BillingHistory(models.Model):
     price = models.DecimalField(default=99.99, decimal_places=2, max_digits=5)
     amount = models.IntegerField(default=100, null=True, blank=True )
     time = models.DateTimeField(auto_now_add=True)
-
+    profit = models.DecimalField(default=2.50, decimal_places=2, max_digits=5)
     class Meta:
         ordering = ['-id']
 
     def __str__(self):
-        return self.title
+        return self.name
             
