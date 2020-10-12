@@ -1,23 +1,5 @@
 from django.contrib import admin
-from .models import OilType, Billing, BillingHistory
-
-@admin.register(Billing)
-class BillingAdmin(admin.ModelAdmin):
-    fields = [
-        'name',
-        'oil',
-        'quantity',
-    ]
-    list_display =[
-        'name',
-        'oil',
-        'quantity',
-
-    ]
-    list_filter =[
-        'name'
-    ]
-    search_fields = ['oil']
+from .models import OilType, BillingHistory
 
 @admin.register(BillingHistory)
 class BillingAdmin(admin.ModelAdmin):
@@ -44,7 +26,8 @@ class OilAdmin(admin.ModelAdmin):
     fields = [
         'name',
         'price',
-        'cp'
+        'cp',
+        'stock'
     ]
     list_display =[
         'name',

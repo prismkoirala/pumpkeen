@@ -5,13 +5,12 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 from django.shortcuts import redirect
 
-from .models import Billing, BillingHistory, OilType
-from .forms import BillingForm, DieselUpdateForm, OilUpdateForm
+from .models import  BillingHistory, OilType
+from .forms import BillingForm,  OilUpdateForm
 
 def billing_exec(request, *args, **kwargs):
 
     oil = OilType.objects.all()
-    billings = Billing.objects.all()
     history = BillingHistory.objects.all()[:5]
     form = BillingForm(request.POST)
 
@@ -25,10 +24,16 @@ def billing_exec(request, *args, **kwargs):
             oil_obj = OilType.objects.get(id=oil_id)
 
             curr_price = oil_obj.price
-            quantity =  form_amt/oil_obj.price
 
-            prof = oil_obj.price-oil_obj.cp
-            tot_prof = quantity*prof
+            quantity = 000.00
+            quantity =  (form_amt/oil_obj.price)
+            
+            print(quantity)
+            prof = oil_obj.price - oil_obj.cp
+            tot_prof = quantity * prof
+            
+            oil_obj.stock = oil_obj.stock - quantity
+            oil_obj.save()
 
             history_save = BillingHistory(
                 oil = oil_obj,
@@ -47,7 +52,6 @@ def billing_exec(request, *args, **kwargs):
         pass
 
     context = {
-        'billings' : billings,
         'history' : history,
         'form': form,
         'oil': oil
