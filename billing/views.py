@@ -28,7 +28,7 @@ def billing_exec(request, *args, **kwargs):
             quantity =  form_amt/oil_obj.price
 
             prof = oil_obj.price-oil_obj.cp
-            tot_prof = quantity
+            tot_prof = quantity*prof
 
             history_save = BillingHistory(
                 oil = oil_obj,
@@ -36,6 +36,7 @@ def billing_exec(request, *args, **kwargs):
                 name = form_name,
                 quantity = quantity,
                 amount = form_amt,
+                profit = tot_prof
             )
             history_save.save()
 
@@ -59,8 +60,7 @@ def list_billing(request, *args, **kwargs):
     history = BillingHistory.objects.all().order_by('-id') 
     
     tot = 0
-    prof = 4.5
-    tot_prof=0.00
+    tot_prof=0
 
     for ins in history:
 

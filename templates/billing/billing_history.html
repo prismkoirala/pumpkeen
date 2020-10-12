@@ -21,7 +21,6 @@
           <th>Item</th>
           <th>Price</th>
           <th>Total</th>
-          <th>Entered By</th>
         </tr>
 
       </thead>
@@ -38,7 +37,6 @@
               <td data-column="Item">{{ h.oil.name }}</td>
               <td data-column="Price">{{ h.price }}</td>
               <td data-column="Total">{{h.amount}}</td>
-              <td data-column="Entered By">{{h.entered_by}}</td>
 
           </tr>
 
@@ -48,7 +46,9 @@
 
     </table>
 
-    TOTAL SALES: {{ tot }}
+    TOTAL SALES: {{ tot }} <br />
+    profit: {{ tot_prof }}
+
 
     <div class="pagination">
         <span class="step-links">
